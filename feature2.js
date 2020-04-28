@@ -5,11 +5,11 @@
 
 let submit = document.getElementById('submit')
 
-
-
+ 
 submit.addEventListener('click',function(e){
   e.preventDefault();
   
+  // 取得網址與 json
   let form = document.forms[0]
   let description = form.elements["description"].value
   let place = form.elements["location"].value
@@ -23,26 +23,43 @@ submit.addEventListener('click',function(e){
 
   let url = `https://still-spire-37210.herokuapp.com/positions.json?${searchParams.toString()}`
   console.log(url)
+  
+
+  // 將取得的資料印在畫面上
   axios.get(url)
      .then(function(resp){
-       console.log(resp.data)
+      let searchResults = resp.data
+       
+      searchResults.map(function(result){
+        let resultUrl = result.url
+        let resultTitle = result.title
+        let resultLocation = result.location
+        
+        let tr = document.createElement('tr')
+        let parent = document.getElementById('job-pannel')
+        let fragement = document.createDocumentFragment();
+        tr.innerHTML = `<tr>
+        <td>
+          <h4><a href="${resultUrl}">${resultTitle}</a></h4>
+          <p class="source">
+          <a class="company" href="${resultUrl}">${resultLocation}</a>
+          –
+          <strong class="fulltime">Full Time</strong>
+          </p>
+        </td>
+        <td class="meta">
+          <span class="location">${resultLocation}</span>
+        </td>
+        </tr>`
+
+        fragement.appendChild(tr);
+        parent.appendChild(fragement);
+
+      })
      })
+     
 })
 
 
 
-function transOn(){
-  let fullTimeChecked = form.elements["full_time"].checked
-  if (fullTimeChecked){
-    searchParams.set("full_time", "on")
-  }else {
-    searchParams.set("", "")
-  }
-}
-
-//目標二：把這個 url 用 axios 打出去
-//步驟
-//1. let url = ``
-//2. axios.get(url)
-//3. .then(function(resp){ console.log(resp)})
 
