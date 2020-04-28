@@ -9,7 +9,10 @@ let submit = document.getElementById('submit')
 submit.addEventListener('click',function(e){
   e.preventDefault();
   
-  // 取得網址與 json
+  let parent = document.getElementById('job-pannel')
+  parent.innerHTML = ""
+  
+  // 取得網址與 json 
   let form = document.forms[0]
   let description = form.elements["description"].value
   let place = form.elements["location"].value
@@ -38,6 +41,7 @@ submit.addEventListener('click',function(e){
         let tr = document.createElement('tr')
         let parent = document.getElementById('job-pannel')
         let fragement = document.createDocumentFragment();
+        
         tr.innerHTML = `<tr>
         <td>
           <h4><a href="${resultUrl}">${resultTitle}</a></h4>
