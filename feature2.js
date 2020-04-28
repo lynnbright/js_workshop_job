@@ -4,20 +4,11 @@ let nextButton = document.querySelector('.pagination-next')
  
 submit.addEventListener('click', function(e){
   e.preventDefault();
-  getResult()  
-})
-
-
-nextButton.addEventListener('click', function(e){
-  e.preventDefault();
-  console.log('hi')
-})
-
-
-
-
-function getResult(){
-  // 取得網址與 json
+  
+  let parent = document.getElementById('job-pannel')
+  parent.innerHTML = ""
+  
+  // 取得網址與 json 
   let form = document.forms[0]
   let description = form.elements["description"].value
   let place = form.elements["location"].value
